@@ -27,8 +27,9 @@ router.post("/login", login);
 router.post("/OtpGenerator", OtpGenerator);
 router.post("/changePassword", auth, changePassword);
 
-// router.post("/resetPasswordToken", resetPasswordToken);
-// router.post("/resetPassword", resetPassword);
+router.post("/resetPasswordToken", resetPasswordToken);
+
+router.post("/reset-password", resetPassword);
 
 
 

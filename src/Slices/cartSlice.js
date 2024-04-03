@@ -13,12 +13,21 @@ const cartSlice = createSlice({
     reducers:{
          setTotalItems(state,value){
             state.totalItems = value.payload
-         }
+         },
         //  add to cart
         // remove from cart
         // reset cart
+        resetCart: (state) => {
+            state.cart = []
+            state.total = 0
+            state.totalItems = 0
+            // Update to localstorage
+            localStorage.removeItem("cart")
+            localStorage.removeItem("total")
+            localStorage.removeItem("totalItems")
+          }
     }
 })
 
-export const {setTotalItems} = cartSlice.actions;
+export const {setTotalItems,resetCart} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -4,10 +4,14 @@ import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-// import youtube from "../images/youtube.png"
+import { useDispatch } from "react-redux";
+import {setSignupData} from "../Slices/authSlice"
+import {sendOtp} from "../Service/Operation/authAPI"
+
 
 export const Signup = ({ setISLoggedIn }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormdata] = useState({
     firstName: "",
     lastName: "",
@@ -17,7 +21,7 @@ export const Signup = ({ setISLoggedIn }) => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
-  const [accountType, setAccountType] = useState("YouTuber");
+  const [accountType, setAccountType] = useState("Student");
 
   function changeHandler(event) {
     setFormdata((prevData) => ({
@@ -31,13 +35,24 @@ export const Signup = ({ setISLoggedIn }) => {
       toast.error("Password do not match");
       return;
     }
-    const acodata = {
+    const signupData = {
       ...formData,
-    };
-    const finaldata = {
-      ...acodata,
       accountType,
     };
+    console.log(signupData);
+
+    dispatch(setSignupData(signupData))
+     console.log("Going to Otp Send")
+    dispatch(sendOtp(formData.email,navigate));
+    console.log("otp send successfully")
+    setFormdata({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    })
+    setAccountType("Student");
   }
 
   return (
@@ -63,7 +78,7 @@ export const Signup = ({ setISLoggedIn }) => {
           >
             <div
               className={`${
-                accountType === "YouTuber"
+                accountType === "Student"
                   ? "bg-black text-white"
                   : "bg-transparent text-gray-200"
               }
@@ -71,7 +86,7 @@ export const Signup = ({ setISLoggedIn }) => {
             >
               <button
                 onClick={() => {
-                  setAccountType("YouTuber");
+                  setAccountType("Student");
                 }}
               >
                 Student
@@ -79,7 +94,7 @@ export const Signup = ({ setISLoggedIn }) => {
             </div>
             <div
               className={`${
-                accountType === "Editor"
+                accountType === "Instructor"
                   ? "bg-black text-white "
                   : "bg-transparent text-gray-200"
               } 
@@ -87,7 +102,7 @@ export const Signup = ({ setISLoggedIn }) => {
             >
               <button
                 onClick={() => {
-                  setAccountType("Editor");
+                  setAccountType("Instructor");
                 }}
               >
                 Instructor
@@ -195,7 +210,7 @@ export const Signup = ({ setISLoggedIn }) => {
               </label>
             </div>
 
-            <button className="bg-yellow-100 text-black font-bold mt-5 w-full rounded-[8px]  text-gray-800 px-[10px] py-[10px] border-2 border-gray-950  hover:text-white duration-200">
+            <button type="submit" className="bg-yellow-100 text-black font-bold mt-5 w-full rounded-[8px]  text-gray-800 px-[10px] py-[10px] border-2 border-gray-950  hover:text-white duration-200">
               Create Account
             </button>
             <div className="flex w-full items-center my-4 gap-x-2">

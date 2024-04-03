@@ -29,7 +29,7 @@ const Home = () => {
             </div>
           </Link>
 
-          <div className="text-4xl font-bold font-semibold gap-3 my-12">
+          <div className="text-4xl font-bold gap-3 my-12">
             Empower your Future with
             <Highlight text="Coding Skill"></Highlight>
           </div>

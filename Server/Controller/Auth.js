@@ -200,20 +200,24 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "User Not Found, please Signup ",
+        message: "User Not Found, please Enter Valid User Email",
       });
     } 
+    console.log("dbishfb")
    
      
     // Check Password
     const checkPass = await bcrypt.compare(password, user.password);
+    console.log(checkPass);
     if (!checkPass) {
-      return res.status(401).json({
+      return res.status(400).json({
         success: false,
         message: "Password Not Match",
       });
     }
- 
+  
+    console.log("dbishfb")
+
    
     const payload = {
       email: user.email,

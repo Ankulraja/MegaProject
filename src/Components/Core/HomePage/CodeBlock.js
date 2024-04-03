@@ -4,7 +4,7 @@ import YellowBtn from "./YellowBtn"
 import GreyBtn from "./GreyBtn"
 import { TypeAnimation } from "react-type-animation"
 const CodeBlock = ({position,heading,subHeading,btnYellow,btnGray,bgGradiant,colorCode ,code}) => {
-  return (
+    return (
     <div className={`w-full flex ${position} flex-wrap` }>
         <div className="w-1/2">
             <div className="">
@@ -21,7 +21,7 @@ const CodeBlock = ({position,heading,subHeading,btnYellow,btnGray,bgGradiant,col
         {/* Part-2 */}
         <div className="w-1/2 flex justify-center">
             <div className="w-4/5 flex border-2 border-richblack-700">
-           <div className="w-1/12  text-center py-2 text-richblack-400">
+           <div className="w-1/12  text-center  py-2 text-richblack-400">
             <p>1</p>
             <p>2</p>
             <p>3</p>
@@ -34,20 +34,17 @@ const CodeBlock = ({position,heading,subHeading,btnYellow,btnGray,bgGradiant,col
             <p>10</p>
             <p>11</p>
            </div>
-           <div className={`w-[500px] py-2 px-3 text-${colorCode}`}>
-            <TypeAnimation
-            sequence={[code,10000]}
+           <div className={`w-[500px] py-2 px-3 `}>
+           <TypeAnimation
+            sequence={[code, 2000, ""]}
             repeat={Infinity}
             cursor={true}
-           
-            style = {
-                {
-                    whiteSpace: "pre-line",
-                    display:"block",
-                }
-            }
-            omitDeletionAnimation={true}
-            ></TypeAnimation>
+            style={{
+              whiteSpace: "pre-line",
+              display: "block",
+              color:"yellow"
+            }}
+          />
            </div>
            </div>
         </div>

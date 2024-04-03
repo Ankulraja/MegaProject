@@ -9,12 +9,13 @@ import { apiConnector } from "../../Service/apiConnector";
 import { categories } from "../../Service/apis";
 
 const NavBar = () => {
-  // const { token } = useSelector((state) => state.auth);
-  const token = "abc";
+  const { token } = useSelector((state) => state.auth);
+  // const token = "abc";
   const { user } = useSelector((state) => state.profile);
   const { totalItem } = useSelector((state) => state.cart);
 
   const [subLink, setSubLink] = useState();
+
   // const subLink = [
   //   {
   //     title: "WebDevelopment",
@@ -27,12 +28,14 @@ const NavBar = () => {
   const call = async () => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      console.log(result);
-      console.log(result.data);
+
+      console.log("Categories", result.data.allCategory);
+      setSubLink(result.data.allCategory);
     } catch (e) {
       console.log("Could not Fetch the Categories Data", e);
     }
   };
+  console.log("After", subLink);
   useEffect(() => {
     call();
   }, []);
@@ -60,10 +63,13 @@ const NavBar = () => {
                 {val.title === "Catalog" ? (
                   <div className="cursor-pointer relative flex transition-all ease-in-out duration-800  items-center gap-2 group">
                     {val.title}
-                    <span>
+                    <span className="text-richblack-200">
                       <FaCircleChevronDown></FaCircleChevronDown>
                     </span>
-                    <div className="invisible absolute transition-all ease-in-out duration-200  group-hover:visible bg-white rounded-md w-[30px] h-[30px] z-10 top-[100%] translate-y-2 left-[75%] rotate-45"></div>
+                    <div key={index}
+                      className="invisible absolute transition-all ease-in-out duration-200  group-hover:visible bg-white rounded-md w-[30px] 
+                    h-[30px] z-10 top-[100%] translate-y-2 left-[75%] rotate-45"
+                    ></div>
                     <div
                       className="invisible absolute transition-all ease-in-out duration-200 group-hover:visible z-10 top-[100%] translate-y-4 -translate-x-[35%]
                      bg-white w-[300px]  rounded-lg flex flex-col  py-5 px-5 "
@@ -72,8 +78,11 @@ const NavBar = () => {
                         return (
                           <Link>
                             {" "}
-                            <div className=" text-black  hover:bg-richblack-100 rounded-lg py-4 px-4 ">
-                              {val.title}
+                            <div
+                              key={index}
+                              className=" text-black  hover:bg-richblack-100 rounded-lg py-4 px-4 "
+                            >
+                              {val.name}
                             </div>
                           </Link>
                         );
