@@ -18,7 +18,7 @@ const ContactUsForm = () => {
   } = useForm();
 
   const submitContactForm = async(data) => {
-      console.log("Logging Data" , data);
+      // console.log("Logging Data" , data);
       try{
         // dispatch(contactAPI(data))
       }

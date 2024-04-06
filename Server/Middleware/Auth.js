@@ -5,7 +5,9 @@ const User = require("../Model/User");
 // auth ,isStudent ,isAdmin
 
 exports.auth = async (req, res, next) => {
+  
   try {
+    // console.log("Comming in Auth")
     const token =
       req.body.token ||
       req.cookies.token ||

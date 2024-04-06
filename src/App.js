@@ -13,13 +13,16 @@ import UpdatePassword from "./Pages/UpdatePassword";
 import OpenRoute from "./Components/Core/Auth/OpenRoute";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import MyProfile from "./Components/Core/Dashboard/MyProfile";
+import PrivateRoute from "./Components/Core/Auth/PrivateRoute";
+import SettingPage from "./Components/Core/Dashboard/Setting/SettingPage";
 function App() {
   return (
     <div>
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/about" element={<About></About>} ></Route>
+        <Route path="/about" element={<About></About>}></Route>
         <Route path="/contact" element={<Contact></Contact>}></Route>
         <Route
           path="/signup"
@@ -61,7 +64,35 @@ function App() {
             </OpenRoute>
           }
         ></Route>
-        <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+        <Route
+          element={
+            <PrivateRoute>
+              <Dashboard></Dashboard>
+            </PrivateRoute>
+          }
+        >
+          <Route
+            path="/dashboard/my-profile"
+            element={<MyProfile></MyProfile>}
+          ></Route>
+          <Route
+            path="/dashboard/enrolled-courses"
+            // element={}
+          ></Route>
+          <Route
+            path="/dashboard/purchase-history"
+            // element={}
+          ></Route>
+          <Route
+            path="/dashboard/setting"
+            element={<SettingPage></SettingPage>}
+          ></Route>
+          <Route
+            path="/dashboard/enrolled-courses"
+            // element={}
+          ></Route>
+        </Route>
+
         <Route path="*" element={<Error></Error>}></Route>
       </Routes>
     </div>

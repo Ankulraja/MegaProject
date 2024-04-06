@@ -22,7 +22,7 @@ const Explore = () => {
     const result = HomePageExplore.filter((e) => e.tag === value);
     setCourse(result[0].courses);
     setCourseTab(result[0].courses[0].id);
-    console.log("Result", result[0].courses[0].id);
+    // console.log("Result", result[0].courses[0].id);
   };
 
   useEffect(() => {

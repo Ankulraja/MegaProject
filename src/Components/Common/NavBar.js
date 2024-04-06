@@ -29,13 +29,13 @@ const NavBar = () => {
     try {
       const result = await apiConnector("GET", categories.CATEGORIES_API);
 
-      console.log("Categories", result.data.allCategory);
+      // console.log("Categories", result.data.allCategory);
       setSubLink(result.data.allCategory);
     } catch (e) {
       console.log("Could not Fetch the Categories Data", e);
     }
   };
-  console.log("After", subLink);
+  // console.log("After", subLink);
   useEffect(() => {
     call();
   }, []);
@@ -66,11 +66,11 @@ const NavBar = () => {
                     <span className="text-richblack-200">
                       <FaCircleChevronDown></FaCircleChevronDown>
                     </span>
-                    <div key={index}
+                    <div 
                       className="invisible absolute transition-all ease-in-out duration-200  group-hover:visible bg-white rounded-md w-[30px] 
                     h-[30px] z-10 top-[100%] translate-y-2 left-[75%] rotate-45"
                     ></div>
-                    <div
+                    <div 
                       className="invisible absolute transition-all ease-in-out duration-200 group-hover:visible z-10 top-[100%] translate-y-4 -translate-x-[35%]
                      bg-white w-[300px]  rounded-lg flex flex-col  py-5 px-5 "
                     >

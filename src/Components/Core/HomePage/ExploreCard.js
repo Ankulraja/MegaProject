@@ -7,7 +7,7 @@ const ExploreCard = (props) => {
   const setCourseTab = props.setCourseTab;
   const [courseNumber, setCourseNumber] = useState(props.course.id);
   // const [heading,setHeading] = useState()
-  console.log("co", course.id);
+  // console.log("co", course.id);
   // console.log("co",courseTab)
   // console.log("courseTab",courseTab.heading)
   return (

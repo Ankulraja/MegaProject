@@ -91,6 +91,7 @@ exports.deleteAccount = async (req, res) => {
 // getAllUserDetails
 exports.getAllUserDetails = async (req, res) => {
   try {
+    console.log("Welcome in Get All User Details")
     const id = req.user.id;
     if (!id) {
       return res.status(400).json({
@@ -151,4 +152,4 @@ exports.updateProfilePhoto = async (req, res) => {
   }
 };
 
-//
+

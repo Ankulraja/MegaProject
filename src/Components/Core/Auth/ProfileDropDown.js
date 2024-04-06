@@ -3,12 +3,13 @@ import { RiDashboard2Line } from "react-icons/ri";
 import { TbLogout } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../Service/Operation/authAPI";
 
 const ProfileDropDown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {user} = useSelector((state)=> state.profile);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const toggleDropdown = () => {
@@ -42,7 +43,7 @@ const ProfileDropDown = () => {
           <img
             className="w-full h-full rounded-[50%] "
             alt=".."
-            src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=1800&t=st=1711665041~exp=1711665641~hmac=093b8ece07276e014ef31dc674b3357d3511d34742e16569b523c12ef526919f"
+            src={user.image}
           ></img>
         </div>
         <div onClick={toggleDropdown}>
