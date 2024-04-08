@@ -2,13 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Btnyellow from "./Btnyellow";
 import { useState } from "react";
+import { deleteAccount,updateProfile } from "../../../../Service/Operation/Setting";
 const ImageUpdate = () => {
   const { user } = useSelector((state) => state.profile);
-  const [img,setImg] =useState();
-  const submitHndler =(event)=>{
+  const {token} = useSelector ((state)=> state.auth);
+  const dispatch = useDispatch();
+  const [img, setImg] = useState();
+  const submitHndler = (event) => {
     event.preventDefault();
-        console.log("img",img);
-  }
+    console.log("img", img);
+    dispatch(updateProfile(token,img))
+  };
   return (
     <div className="w-11/12  mx-auto py-10 flex items-center gap-5">
       <img
@@ -22,12 +26,18 @@ const ImageUpdate = () => {
         <form onSubmit={submitHndler} className="flex gap-3">
           <label className="py-2 cursor-pointer px-4 font-bold bg-richblack-400 text-white rounded-lg">
             Select
-            <input onChange={(event)=>{setImg(event.target.files)}} className=" hidden" type="file" accept="image/*"></input>
+            <input
+              onChange={(event) => {
+                setImg(event.target.files);
+              }}
+              className=" hidden"
+              type="file"
+              accept="image/*"
+            ></input>
           </label>
           <button type="submit">
             <Btnyellow text={"Upload"}></Btnyellow>
           </button>
-       
         </form>
       </div>
     </div>

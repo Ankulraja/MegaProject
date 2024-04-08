@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 export const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",

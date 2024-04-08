@@ -18,9 +18,6 @@ const {resetPasswordToken,resetPassword}=require("../Controller/ResetPassword")
 router.put("/updateProfile",auth,isStudent,updateProfile);
 router.delete("/deleteAccount",auth,deleteAccount)
 router.get("/getAllUserDetails",auth,getAllUserDetails);
-// router.get("/getAllUserDetails",()=>{
-//   console.log("Ha Bol")
-// });
 router.put("/updateProfilePhoto",auth,updateProfilePhoto);
 
 

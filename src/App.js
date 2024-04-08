@@ -16,6 +16,7 @@ import Contact from "./Pages/Contact";
 import MyProfile from "./Components/Core/Dashboard/MyProfile";
 import PrivateRoute from "./Components/Core/Auth/PrivateRoute";
 import SettingPage from "./Components/Core/Dashboard/Setting/SettingPage";
+import Enroll from "./Components/Core/Dashboard/EnrolledCourse/Enroll";
 function App() {
   return (
     <div>
@@ -77,6 +78,10 @@ function App() {
           ></Route>
           <Route
             path="/dashboard/enrolled-courses"
+            element={<Enroll></Enroll>}
+          ></Route>
+          <Route
+            path="/dashboard/enrolled-courses"
             // element={}
           ></Route>
           <Route
@@ -87,10 +92,7 @@ function App() {
             path="/dashboard/setting"
             element={<SettingPage></SettingPage>}
           ></Route>
-          <Route
-            path="/dashboard/enrolled-courses"
-            // element={}
-          ></Route>
+          
         </Route>
 
         <Route path="*" element={<Error></Error>}></Route>

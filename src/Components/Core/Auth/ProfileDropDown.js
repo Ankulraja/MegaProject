@@ -56,7 +56,7 @@ const ProfileDropDown = () => {
         w-[130px] border-[0.1px] border-richblack-200 text-richblack-200 
         bg-richblack-800"
         >
-          <Link to={"/dashboard"} className="block">
+          <Link to={"/dashboard/my-profile"} className="block">
             <div className="flex gap-1 items-center px-3 border-b-[0.1px] border-b-richblack-200 py-2">
               <RiDashboard2Line />
               Dashboard

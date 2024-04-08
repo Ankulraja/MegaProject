@@ -120,7 +120,9 @@ exports.getAllUserDetails = async (req, res) => {
 exports.updateProfilePhoto = async (req, res) => {
   try {
     const userId = req.user.id;
-    const profilePhoto = req.files.profilePhoto;
+    console.log("User Id: " + userId);
+    const profilePhoto = req.files.img;
+    console.log("profilePhoto: " + profilePhoto);
     if (!userId || !profilePhoto) {
       return res.status(403).json({
         success: false,

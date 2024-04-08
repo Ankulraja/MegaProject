@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { MdDeleteForever } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
 const DeleteAccount = () => {
-    const dispatch = useDispatch();
+    
   const [deleteModalData, setDeleteModalData] = useState("");
-  console.log(deleteModalData)
+  // console.log(deleteModalData)
   return (
     <div className="w-11/12 mx-auto py-9 flex flex-row gap-4">
       <button className="text-4xl  bg-pink-700 text-pink-200 w-[60px] h-[60px] rounded-[50%] flex justify-center items-center">
