@@ -9,16 +9,19 @@ const {
     isInstructor,
   } = require("../Middleware/Auth");
 
-const{updateProfile,deleteAccount,getAllUserDetails,updateProfilePhoto}=require("../Controller/Profile");
-const {resetPasswordToken,resetPassword}=require("../Controller/ResetPassword")
+const{updateProfile,deleteAccount,getAllUserDetails,updateProfilePhoto,updatePassword,getEnrolledCourse}=require("../Controller/Profile");
+const {resetPasswordToken,resetPassword,}=require("../Controller/ResetPassword")
 
 // router.post("/resetPasswordToken",resetPasswordToken)
 // router.post("/resetPassword",resetPassword)
+
 
 router.put("/updateProfile",auth,isStudent,updateProfile);
 router.delete("/deleteAccount",auth,deleteAccount)
 router.get("/getAllUserDetails",auth,getAllUserDetails);
 router.put("/updateProfilePhoto",auth,updateProfilePhoto);
+router.put("/updatePassword",auth,updatePassword);
+router.put("/getEnrolledCourse",auth,getEnrolledCourse);
 
 
 
