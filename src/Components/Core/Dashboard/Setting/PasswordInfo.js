@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import Btnyellow from "./Btnyellow";
 import Btngray from "./Btngray";
+import { updatePassword } from "../../../../Service/Operation/Setting";
 
 const PasswordInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {token} = useSelector((state)=>state.auth)
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [formData, setFormData] = useState({
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
   });
 
@@ -27,6 +29,7 @@ const PasswordInfo = () => {
   const submitHandler =(event)=>{
       event.preventDefault();
       console.log("Form submit ",formData)
+      dispatch(updatePassword(token, formData));
   }
   return (
     <div className="w-11/12 mx-auto py-8">
@@ -34,16 +37,16 @@ const PasswordInfo = () => {
       <div className="w-full">
         <form className="flex gap-4 relative" onSubmit={submitHandler}>
           <div className="w-1/2">
-            <label htmlFor="oldPassword" className="relative w-full ">
+            <label htmlFor="currentPassword" className="relative w-full ">
               <p className="my-[10px]">Current Password</p>
               <input
                 type={showPassword1 ? "text" : "password"}
                 required
-                id="oldPassword"
-                value={formData.oldPassword}
+                id="currentPassword"
+                value={formData.currentPassword}
                 placeholder="Enter Current password"
                 onChange={changeHandler}
-                name="oldPassword"
+                name="currentPassword"
                 className="bg-richblack-700 rounded-[0.5rem] text-gray-50 p-[12px] w-full h-10 border-b border-b-richblack-200"
               ></input>
               <span

@@ -43,7 +43,7 @@ const ProfileDropDown = () => {
           <img
             className="w-full h-full rounded-[50%] "
             alt=".."
-            src={user.image}
+            src={user?.image}
           ></img>
         </div>
         <div onClick={toggleDropdown}>

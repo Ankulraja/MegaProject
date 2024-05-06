@@ -31,7 +31,7 @@ const MyProfile = () => {
             <div className="w-11/12  relative  h-full mx-auto flex  items-center">
               <div className="w-[80px] h-[80px] rounded-[50%]">
                 <img
-                  className="rounded-[50%]"
+                  className="rounded-[50%] w-[70px] h-[70px]"
                   src={user.image}
                   alt="loading..."
                 ></img>
