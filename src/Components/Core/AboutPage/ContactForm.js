@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import {contactAPI} from "../../../Service/Operation/PageAndComponent"
 
 const ContactUsForm = () => {
-//   const [loading, setLoading] = useState(false);
+
    const dispatch = useDispatch;
   const {
     register,

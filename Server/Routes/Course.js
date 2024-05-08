@@ -48,7 +48,7 @@ router.post("/deleteSubSection", auth, isInstructor, deleteSubSection);
 
 // Category
 router.post("/createCategory", auth, isAdmin, createCategory);
-router.get("/showAllCategory", showAllCategory);
+router.get("/showAllCategories", showAllCategory);
 router.post("/categoryPageDetail", categoryPageDetail);
 
 //  Rating and Review
