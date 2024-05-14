@@ -1,5 +1,4 @@
 // Send OTP
-
 const User = require("../Model/User");
 const OTP = require("../Model/OTP");
 const OtpGen = require("otp-generator");

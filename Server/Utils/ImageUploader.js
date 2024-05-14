@@ -10,11 +10,11 @@ exports.uploadToCloudinary = async (file, folder, height, quality) => {
       options.quality = quality;
     }
     options.resource_type = "auto";
-   return await Cloudinary.uploader.upload(file.tempFilePath, options);
+    return await Cloudinary.uploader.upload(file.tempFilePath, options);
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message:"Couldn't upload "
-    })
+      message: "Couldn't upload ",
+    });
   }
 };

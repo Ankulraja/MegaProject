@@ -7,7 +7,7 @@ const User = require("../Model/User");
 exports.auth = async (req, res, next) => {
   
   try {
-    // console.log("Comming in Auth")
+    console.log("Comming in Auth 1")
     const token =
       req.body.token ||
       req.cookies.token ||
@@ -18,8 +18,12 @@ exports.auth = async (req, res, next) => {
         message: "Token is Missing",
       });
     }
+    console.log("Comming in Auth 2")
+
     console.log(token);
-    const payload = await jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Comming in Auth 2.5")
+
     console.log(payload);
 
     if (!payload) {
@@ -28,7 +32,10 @@ exports.auth = async (req, res, next) => {
         message: "Unauthenticate Person",
       });
     }
+    console.log("Comming in Auth 3")
+
     req.user = payload;
+    console.log("Comming in Auth 4")
    
     next();
   } catch (e) {

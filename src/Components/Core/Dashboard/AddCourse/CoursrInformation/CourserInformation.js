@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourseCategories } from "../../../../../Service/Operation/Course";
+import {
+  addCourseDetail,
+  editCourseDetail,
+  fetchCourseCategories,
+} from "../../../../../Service/Operation/Course";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import ChipInput from "./ChipInput";
 import Upload from "../Upload";
 import RequirementFeild from "./RequirementFeild";
+import { setCourse, setStep } from "../../../../../Slices/courseSlice";
+import { current } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 const CourserInformation = () => {
   const dispatch = useDispatch();
   const { course, editCourse } = useSelector((state) => state.course);
   const [courseCategories, setCourseCategories] = useState([]);
+  const { token } = useSelector((state) => state.auth);
+  const {step} = useSelector((state) => state.course);
   const {
     register,
     reset,
@@ -40,9 +49,99 @@ const CourserInformation = () => {
     getCategories();
   }, []);
 
-  const submitForm = (data) => {
-    console.log("Data...........", data);
+  const isFormUpdate = () => {
+    const currentValues = getValues();
+    if (
+      currentValues.courseTitle !== course.courseName ||
+      currentValues.courseShortDesc !== course.courseDescription ||
+      currentValues.coursePrice !== course.price ||
+      currentValues.courseTags.toString() !== course.tags.toString() ||
+      currentValues.courseBenefits !== course.whatWillYouLearn ||
+      currentValues.courseCategory._id !== course.category._id ||
+      currentValues.courseRequirements.toString() !==
+        course.instructions.toString() ||
+      currentValues.courseImage !== course.thumbnail
+    ) {
+      return true;
+    } else return false;
   };
+  const submitForm = async (data) => {
+    // console.log("Data...........", data);
+    if (editCourse) {
+      if (isFormUpdate()) {
+        const formData = new FormData();
+        const currentValues = getValues();
+        formData.append("courseID", course._id);
+        if (currentValues.courseTitle !== course.courseName) {
+          formData.append("courseName", data.courseName);
+        }
+        if (currentValues.courseShortDesc !== course.courseDescription) {
+          formData.append("description", data.courseShortDesc);
+        }
+        if (currentValues.coursePrice !== course.price) {
+          formData.append("price", data.coursePrice);
+        }
+        if (currentValues.courseTags.toString() !== course.tags.toString()) {
+          formData.append("tags", JSON.stringify(data.courseTags));
+        }
+        if (currentValues.courseBenefits !== course.whatWillYouLearn) {
+          formData.append("whatWillYouLearn", data.courseBenefits);
+        }
+        if (currentValues.courseCategory._id !== course.category._id) {
+          formData.append("category", data.courseCategory);
+        }
+        if (
+          currentValues.courseRequirements.toString() !==
+          course.instructions.toString()
+        ) {
+          formData.append(
+            "instructions",
+            JSON.stringify(data.courseRequirements)
+          );
+        }
+        if (currentValues.courseImage !== course.thumbnail) {
+          formData.append("thumbnailImage", data.courseImage);
+        }
+
+        const result = await editCourseDetail(formData, token);
+        if (result) {
+          dispatch(setStep(2));
+          dispatch(setCourse(result))
+        }
+      } else {
+        toast.error("No Changes is there !! ");
+
+        return;
+      }
+      
+    }else{ 
+      // You Are New One And Create A Course
+      const formData = new FormData();
+        formData.append("courseName", data.courseTitle)
+        formData.append("courseDescription", data.courseShortDesc)
+        formData.append("price", data.coursePrice)
+        formData.append("tag", JSON.stringify(data.courseTags))
+        formData.append("whatYouWillLearn", data.courseBenefits)
+        formData.append("category", data.courseCategory)
+        // formData.append("status", COURSE_STATUS.DRAFT)
+        formData.append("instructions", JSON.stringify(data.courseRequirements))
+        formData.append("thumbnailImage", data.courseImage)
+        console.log("Add Course Ko Call Kiya Hai....")
+        const result = await addCourseDetail(formData,token)
+        console.log("Add Course se Result Aaay hai",result)
+        const toastId = toast.loading("Adding Data...")
+
+        if(result){
+          console.log("Course Set Hua")
+          dispatch(setStep(2));
+          dispatch(setCourse(result))
+          console.log("Aage Step Jao",step)
+        }
+        toast.dismiss(toastId)
+    }
+  };
+
+  
   return (
     <div className="border-[0.5px] border-richblack-500 rounded-lg px-5 py-7 bg-richblack-800">
       <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-7">
@@ -156,49 +255,58 @@ const CourserInformation = () => {
         ></ChipInput>
 
         {/* Upload Thumbnail */}
-        <Upload 
-        name="courseImage"
-        label="Course Thumbnail"
-        register={register}
-        setValue={setValue}
-        errors={errors}
-        editData={editCourse ? course?.thumbnail : null}
+        <Upload
+          name="courseImage"
+          label="Course Thumbnail"
+          register={register}
+          setValue={setValue}
+          errors={errors}
+          editData={editCourse ? course?.thumbnail : null}
         />
 
-          
-          {/* Benifits */}
+        {/* Benifits */}
         <div className="flex flex-col space-y-2">
-        <label className="text-sm text-richblack-5" htmlFor="courseBenefits">
-          Benefits of the course <sup className="text-pink-200">*</sup>
-        </label>
-        <textarea
-          id="courseBenefits"
-          placeholder="Enter benefits of the course"
-          {...register("courseBenefits", { required: true })}
-          className="form-style resize-x-none min-h-[130px] w-full"
-        />
-        {errors.courseBenefits && (
-          <span className="ml-2 text-xs tracking-wide text-pink-200">
-            Benefits of the course is required
-          </span>
-        )}
-      </div>
+          <label className="text-sm text-richblack-5" htmlFor="courseBenefits">
+            Benefits of the course <sup className="text-pink-200">*</sup>
+          </label>
+          <textarea
+            id="courseBenefits"
+            placeholder="Enter benefits of the course"
+            {...register("courseBenefits", { required: true })}
+            className="form-style resize-x-none min-h-[130px] w-full"
+          />
+          {errors.courseBenefits && (
+            <span className="ml-2 text-xs tracking-wide text-pink-200">
+              Benefits of the course is required
+            </span>
+          )}
+        </div>
 
-           
         {/* Requirement */}
         <RequirementFeild
-         name="courseRequirements"
-         label="Requirements/Instructions"
-         register={register}
-         setValue={setValue}
-         errors={errors}
-         getValues={getValues}
+          name="courseRequirements"
+          label="Requirements/Instructions"
+          register={register}
+          setValue={setValue}
+          errors={errors}
+          getValues={getValues}
         ></RequirementFeild>
 
-
-        <button className="py-2 px-3 rounded-lg bg-yellow-100 text-black font-bold">
-          Next
-        </button>
+        <div className="flex justify-end gap-8 ">
+          {editCourse && (
+            <button
+              className="py-3 px-5 rounded-lg bg-richblack-700 text-richblack-100"
+              onClick={() => {
+                setStep(2);
+              }}
+            >
+              Continue Without Saving
+            </button>
+          )}
+          <button className="py-2 px-3 rounded-lg bg-yellow-100 text-black font-bold">
+            {!editCourse ? "Next" : "Save Change"}
+          </button>
+        </div>
       </form>
     </div>
   );

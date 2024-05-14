@@ -126,10 +126,16 @@ exports.deleteSection = async (req, res) => {
       { new: true }
     );
    
-    console.log(deleteSectionFromCourse);
-
+    // console.log(deleteSectionFromCourse);
+    const updatedCourse = await Course.findById(courseId).populate({
+      path: "courseContent",
+      populate: {
+        path: "subSection",
+      },
+    });
     return res.status(200).json({
       success: true,
+      updatedCourse,
       message: "Updating successfully",
     });
   } catch (err) {

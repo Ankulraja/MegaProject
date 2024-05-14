@@ -102,24 +102,24 @@ export function login(email, password, navigate) {
 
       console.log("LOGIN API RESPONSE............", response);
 
-      console.log(response.data.success);
+      console.log(response?.data?.success);
 
       if (!response.data.success) {
-        throw new Error(response.data.message);
+        throw new Error(response?.data?.message);
       }
 
       toast.success("Login Successfully");
-      dispatch(setToken(response.data.token));
-      const userImage = response.data?.user?.image
+      dispatch(setToken(response?.data.token));
+      const userImage = response?.data?.user?.image
         ? response.data.user.image
-        : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`;
+        : `https://api.dicebear.com/5.x/initials/svg?seed=${response?.data?.user.firstName} ${response.data.user.lastName}`;
       dispatch(setUser({ ...response.data.user, image: userImage }));
-      localStorage.setItem("token", JSON.stringify(response.data.token));
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("token", JSON.stringify(response?.data?.token));
+      localStorage.setItem("user", JSON.stringify(response?.data?.user));
       navigate("/dashboard");
     } catch (error) {
       console.log("LOGIN API ERROR............", error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
     }
     dispatch(setLoading(false));
     toast.dismiss(toastId);

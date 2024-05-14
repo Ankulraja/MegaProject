@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 export const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -76,7 +76,7 @@ export const Login = (props) => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute bottom-[12px] right-3 hover:cursor-pointer ml-[10px]"
                 >
-                  {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  {!showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                 </span>
               </label>
               <div className=" flex w-full text-blue-400 justify-end">

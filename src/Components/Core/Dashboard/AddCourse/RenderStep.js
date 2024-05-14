@@ -3,9 +3,10 @@ import { MdOutlineDone } from "react-icons/md";
 import CourserInformation from "./CoursrInformation/CourserInformation";
 import CourseBuilder from "./CourseBuilder/CourseBuilder";
 import Public from "./Public/Public";
+import { useEffect } from "react";
 const RenderStep = () => {
-  // const { step } = useSelector((state) => state.course);
-  const step = 1;
+  const { step } = useSelector((state) => state.course);
+  // const step =2;
   const items = [
     {
       id: 1,
@@ -20,6 +21,9 @@ const RenderStep = () => {
       name: "Publish",
     },
   ];
+  // useEffect(()=>{
+  // },[step])
+
   return (
     <div className="text-white">
       <div className="w-10/12 mx-auto flex justify-between ">
