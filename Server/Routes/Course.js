@@ -11,7 +11,8 @@ const {
   createCourse,
   getAllCourse,
   getCourseDetails,
-  editCourse
+  editCourse,
+  getInstructorCourses
 } = require("../Controller/Course");
 const {
   createSection,
@@ -59,5 +60,7 @@ router.post("/createRatingAndReview", auth, isStudent, createRatingAndReview);
 router.get("/getAvgRating", getAvgRating);
 router.post("/getAllRatingAndReview", getAllRatingAndReview);
 
+
+router.get("/getInstructorCourses", auth, isInstructor,getInstructorCourses)
 
 module.exports = router;

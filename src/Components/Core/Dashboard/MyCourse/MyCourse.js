@@ -1,9 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CoursesCard from "./CoursesCard";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { setCourse } from "../../../../Slices/courseSlice";
+import { fetchInstructorCourses } from "../../../../Service/Operation/Course";
 const MyCourse = () => {
   const [courses, setCourses] = useState([]);
+
+  const {token} = useSelector((state)=> state.auth);
+  const navigate = useNavigate();
+  
+  console.log("Course .......",courses)
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const result = await fetchInstructorCourses(token)
+      console.log("result .......",result)
+      if(result) setCourses(result)
+    }
+    fetchCourses()
+  }, [])
+  
+
+
   return (
     <div className="text-white relative">
       <h1 className="text-3xl">MyCourse</h1>

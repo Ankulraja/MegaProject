@@ -5,6 +5,7 @@ import { setUser } from "../../Slices/profileSlice";
 import { apiConnector } from "../apiConnector";
 import { endpoints } from "../apis";
 import { useNavigate } from "react-router-dom";
+import { setCourse, setStep } from "../../Slices/courseSlice";
 
 const {
   SENDOTP_API,
@@ -130,9 +131,13 @@ export function logout(navigate) {
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setUser(null));
+    dispatch(setStep(1));
+    dispatch(setCourse(null));
     dispatch(resetCart());
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("step");
+    localStorage.removeItem("course");
     navigate("/")
     toast.success("Logged Out");
   };

@@ -49,7 +49,7 @@ export const fetchCourseCategories = async () => {
 
 
 export const addCourseDetail = async (data,token)=>{
-    console.log("AddCourse me Aaya")
+    // console.log("AddCourse me Aaya   .........///....",data)
 
   let result = null
   const toastId = toast.loading("Loading...")
@@ -74,7 +74,11 @@ export const addCourseDetail = async (data,token)=>{
 
 
 export const editCourseDetail = async (data,token)=>{
-  console.log("EditCourse me Aaya")
+  console.log("EditCourse me Aaya",data)
+  for (const entry of data.entries()) {
+    console.log(" Entry ",entry);
+  }
+
   let result = null
   const toastId = toast.loading("Loading...")
   try {
@@ -86,8 +90,9 @@ export const editCourseDetail = async (data,token)=>{
     if (!response?.data?.success) {
       throw new Error("Could Not Update Course Details")
     }
-    toast.success("Course Details Updated Successfully")
     result = response?.data?.data
+
+    toast.success("Course Details Updated Successfully")
   } catch (error) {
     console.log("EDIT COURSE API ERROR............", error)
     toast.error(error.message)
@@ -235,6 +240,32 @@ export const deleteSubSection = async (data, token) => {
     result = response?.data?.data
   } catch (error) {
     console.log("DELETE SUB-SECTION API ERROR............", error)
+    toast.error(error.message)
+  }
+  toast.dismiss(toastId)
+  return result
+}
+
+
+export const fetchInstructorCourses = async (token) => {
+  let result = []
+  const toastId = toast.loading("Loading...")
+  try {
+    const response = await apiConnector(
+      "GET",
+      GET_ALL_INSTRUCTOR_COURSES_API,
+      null,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    )
+    console.log("INSTRUCTOR COURSES API RESPONSE............", response)
+    if (!response?.data?.success) {
+      throw new Error("Could Not Fetch Instructor Courses")
+    }
+    result = response?.data?.data
+  } catch (error) {
+    console.log("INSTRUCTOR COURSES API ERROR............", error)
     toast.error(error.message)
   }
   toast.dismiss(toastId)

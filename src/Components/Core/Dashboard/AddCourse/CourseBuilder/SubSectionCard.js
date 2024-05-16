@@ -78,11 +78,12 @@ const SubSectionCard = ({
     setLoading(true)
     const result = await updateSubSection(formData, token)
     if (result) {
-      
+
       const updatedCourseContent = course.courseContent.map((section) =>
         section._id === modalData.sectionId ? result : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
+      localStorage.setItem("course",JSON.stringify(updatedCourse));
       dispatch(setCourse(updatedCourse))
     }
     setModalData(null)
@@ -117,6 +118,7 @@ const SubSectionCard = ({
         section._id === modalData ? result : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
+      localStorage.setItem("course",JSON.stringify(updatedCourse));
       dispatch(setCourse(updatedCourse))
     }
     setModalData(null)

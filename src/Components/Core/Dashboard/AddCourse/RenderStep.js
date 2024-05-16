@@ -23,7 +23,7 @@ const RenderStep = () => {
   ];
   // useEffect(()=>{
   // },[step])
-
+  //  console.log("step",step)
   return (
     <div className="text-white">
       <div className="w-10/12 mx-auto flex justify-between ">

@@ -23,7 +23,7 @@ const NestedView = ({ handleChangeEditSection }) => {
   const [editSubSection, setEditSubSection] = useState(null);
 
   const [ConfirmationModalData, setConfirmationModalData] = useState(null);
-  // console.log("nestes view me Courses",course);
+  // console.log("nestes view me Courses........................",course);
   const deleteSectionHandler = async (sectionId) => {
     const data = {
       sectionId: sectionId,
@@ -35,6 +35,7 @@ const NestedView = ({ handleChangeEditSection }) => {
     const result = await deleteSection(data, token);
     console.log("result ", result);
     if (result) {
+      localStorage.setItem("course", JSON.stringify(result));
       dispatch(setCourse(result));
     }
     setConfirmationModalData(null);
@@ -56,7 +57,7 @@ const NestedView = ({ handleChangeEditSection }) => {
         return section._id === sectionId ? result : section;
       });
       const updatedCourse = { ...course, courseContent: updatedCourseContent };
-
+      localStorage.setItem("course", JSON.stringify(updatedCourse));
       dispatch(setCourse(updatedCourse));
     }
     setConfirmationModalData(null);

@@ -48,13 +48,13 @@ app.use("/api/v1/profile",profileRoute)
 app.use("/api/v1/payment",paymentRoute)
 
 
-app.use("/",(req,res)=>{
-    res.send(`<h1>Your Server Start</h1>`)
-    return res.json({
-        success:true,
-        message:"Your server start"
-    })
-})
+// app.use("/",(req,res)=>{
+//     res.send(`<h1>Your Server Start</h1>`)
+//     return res.json({
+//         success:true,
+//         message:"Your server start"
+//     })
+// })
 
 app.listen(PORT, ()=>{
     console.log("listening on port",PORT);

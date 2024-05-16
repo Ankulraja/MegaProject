@@ -17,6 +17,7 @@ import {
 import toast from "react-hot-toast";
 import NestedView from "./NestedView";
 const CourseBuilder = () => {
+  // console.log("CourseBuilder")
   const [editSectionId, setEditSectionId] = useState(null);
   const { course } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
@@ -57,6 +58,7 @@ const CourseBuilder = () => {
     }
     console.log("result...........", result);
     if (result) {
+      localStorage.setItem("course",JSON.stringify(result));
       dispatch(setCourse(result));
       setEditSectionId(null);
       setValue("sectionName", "");
@@ -79,9 +81,12 @@ const CourseBuilder = () => {
     setValue("sectionName", "");
   };
 
+
   const gotoBack = () => {
+    localStorage.setItem("step",1)
     dispatch(setStep(1));
     dispatch(setEditCourse(true));
+    console.log("goto Complete")
   };
   const gotoNext = () => {
     if (course?.courseContent?.length === 0) {
@@ -89,11 +94,13 @@ const CourseBuilder = () => {
       return;
     }
     if (
-      course.courseContent.some((section) => section?.subSection?.length === 0)
+      // Traverse All the Subsection And Check wheather SubSecttion is there or not
+      course?.courseContent?.some((section) => section?.subSection?.length === 0)
     ) {
       toast.error("Please add atleast one lecture in each section");
       return;
     }
+    localStorage.setItem("step",3);
     dispatch(setStep(3));
   };
 
